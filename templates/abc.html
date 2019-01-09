@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="refresh" content="10">
+    <title>Title</title>
+    <script>
+	for(var i=0;i<10;i++){
+	if(i==10){
+	console.log(i);
+	window.location.reload();
+	}
+}
+        function checkLength(){
+            var name=document.getElementById('user').value;
+            if(name.length<5){
+                console.log(name);
+                return false;
+            }else{
+                return true;
+            }
+        }
+        window.onload=function(){
+            var mysubmit=document.getElementById('submit');
+            mysubmit.onclick=function(event){
+                var name=document.getElementById('user').value;
+                if(name=='123456'){
+                    event.preventDefault();
+                }else{
+
+                }
+            }
+        }
+		
+		function sum_test(){
+		var num=0;
+			for(var i=1;i<5;i++){
+				var num=i+num;
+				alert(num)
+			}
+		}
+		function one_time(ths){
+			console.log('1');
+			ths.onclick=null;
+		}
+    </script>
+</head>
+<body>
+
+    <form action="clock.html" method="post" onsubmit="return checkLength()">
+        <p>name:<input type="text" name="user" id="user"></p>
+        <input type="submit" id="submit" name="submit"> 
+    </form>
+	<input type="button" onclick="sum_test()" value="for循环测试" ><br>
+	<input type="button" value="确认" onclick="one_time(this)">
+</body>
+</html>
