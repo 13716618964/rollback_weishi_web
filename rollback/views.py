@@ -6,6 +6,9 @@ import json,datetime
 
 # Create your views here.
 def roll_login(request):
+    print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    print(request.META['REMOTE_ADDR'])
+    print(request.META)
     userID = request.session.get('userID')
     if userID != None:
         username = request.session.get('username')
@@ -102,21 +105,26 @@ def project_web(request):
     if mysql_data == None:
         return HttpResponse(status=403)
     server_ip=[]
+    back_file_dir={}
     for ip in mysql_data[0].split(','):
         server_ip.append(ip)
-    sql=''' select IP,PORT,USERNAME,PASSWORD from t_server_info where IP='%s' ''' %server_ip[0]  #取第一个IP
-    server_info=mysql.mysql_info(sql,'one')
-    cmd=''' cd %s;ls *.gz|sort -rn ''' %mysql_data[1]
-    back_file_list = []
-    print(server_info)
-    if server_info != None:
-        back_file=ssh_scp.ssh_server(server_info[0],server_info[1],server_info[2],server_info[3],cmd)
-        print(back_file)
-        if back_file != None:
-            back_file_list=[]
-            for file in back_file.split('\n'):
-                if file != '':
-                    back_file_list.append(file)
+        sql=''' select IP,PORT,USERNAME,PASSWORD from t_server_info where IP='%s' ''' %ip
+        server_info=mysql.mysql_info(sql,'one')
+        cmd=''' cd %s;ls *.gz|sort -rn ''' %mysql_data[1]
+        back_file_list = []
+    #print(server_info)
+        if server_info != None:
+            back_file=ssh_scp.ssh_server(server_info[0],server_info[1],server_info[2],server_info[3],cmd)
+            #print(back_file)
+            if back_file != None:
+                back_file_list=[]
+                for file in back_file.split('\n'):
+                    if file != '':
+                        back_file_list.append(file)
+        back_file_dir[ip]=back_file_list
+    print(back_file_dir)
+    ip_num=len(server_ip)
+    print(ip_num)
     #传递变量到修改页面，把需要的变量加入session
     '''
     request.session['server_ip']=str_server_ip
@@ -130,9 +138,31 @@ def project_web(request):
     return_data['username'] = username
     return_data['email'] = email
     return_data['project_names'] = project_names
+    return_data['ip_num']=ip_num
+    return_data['back_files']=back_file_dir
     return_data['server_ip']=server_ip
-    return_data['back_files']=back_file_list
     return render(request, 'index.html', return_data)
+
+def rollbackingceshi(request):
+    ip_list=request.POST.get('ip')
+    project=request.POST.get('project_name')
+    reslue=''
+    for ip in ip_list.split(','):
+        version=request.POST.get(ip)
+        sql=''' select s.IP,s.PORT,s.USERNAME,s.PASSWORD,p.back_path,p.code_path,p.project_path from t_server_info s , t_project_info p where p.project_name='%s' and s.IP='%s'  ''' %(project,ip)
+        mysql_data=mysql.mysql_info(sql,'one')
+        cmd='cd %s\n' %mysql_data[5]
+        cmd+='cp %s/%s ./\n' %(mysql_data[4],version)
+        cmd+='tar zxf %s\n' %version
+        cmd+='kill -9 `cat %s/server.pid`\n' %mysql_data[6]
+        cmd+='sleep 1 && %s/bin/startup.sh\n' %mysql_data[6]
+        print(cmd)
+        ssh_data=ssh_scp.ssh_server(mysql_data[0],mysql_data[1],mysql_data[2],mysql_data[3],cmd)
+        print(ssh_data)
+        cmd='ls -l %s' %mysql_data[5]
+        ssh_data = ssh_scp.ssh_server(mysql_data[0], mysql_data[1], mysql_data[2], mysql_data[3], cmd)
+        reslue+=ssh_data
+    return HttpResponse(reslue)
 
 #删除session(退出登陆)
 def delete_session(request):
@@ -163,6 +193,7 @@ def rollback_api(request):
     PORT, USERNAME, PASSWORD=mysql.mysql_info(sql,'one')
     sql=''' select back_path,code_path,project_path from t_project_info where project_name='%s'  ''' %project
     back_path, code_path, project_path=mysql.mysql_info(sql,'one')
+    #//每台服务器上的备份文件的名称不同，所以需要单台回滚
     command=''' sh /automation/shell/rollback.sh %s %s %s %s %s''' %(project_path,back_path,code_path,project,file_name)
     ssh_data=ssh_scp.ssh_server(server_ip,PORT,USERNAME,PASSWORD,command)
     DATETIME=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -258,3 +289,9 @@ def add_user_api(request):
                                 </script>''')
     else:
         return HttpResponse('ERROR')
+
+
+
+def concurrent_test(request):
+    mysql.concurrent_test()
+    return HttpResponse('123456789')

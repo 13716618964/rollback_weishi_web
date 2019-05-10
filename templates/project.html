@@ -1,0 +1,18 @@
+<body>
+
+<br><br>
+    <form id="{{ pagetag }}" name="project" action="/rollbackingceshi" method="post" > <!-- onsubmit="return xxx()"> -->
+    项目名称　　　：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ pagetag }}<br><br>
+      {% for ip,version in back_files.items %}  项目所在服务器：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ ip }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          回滚版本　　　：<select name="{{ ip }}">
+                                {% for file in version %}<option>{{ file }}</option>{% empty %}<option>无法回滚</option>{% endfor %}
+                            </select><br><br>
+    {% endfor %}
+    <h3 style="color: red">注：第一个是上一个版本，今天第一个是今天之前的版本。（格式：年月日时分秒.tar.gz）</h3>
+    <h3 style="color: red">用ajax调后台接口，点击确定后，请稍后。请打开调试模式看console.log</h3>
+    <input style="display:none"  name="ip" type="text" value="{% for ip in server_ip %}{{ ip }}{% if not forloop.last %},{% endif %}{% endfor %}" >
+    <input type="hidden" value="{{ ip_num }}" id="server_num">
+    <input type="hidden" name="project_name" value="{{ pagetag }}" >
+        <input type="submit" value="确定回滚" > <!-- onclick="axaj_rollback(this)">  -->
+    </form>
+</body>

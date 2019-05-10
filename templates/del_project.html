@@ -1,0 +1,24 @@
+<body>
+<br>
+{% load staticfiles %}
+<table border="1"  bordercolor="#a0c6e5" style="border-collapse:collapse;" >
+    <tr>
+        <th>项目名称</th>
+        <th>项目所在服务器</th>
+        <th>删除</th>
+    </tr>
+{% for info in projects %}
+<tr>
+<td>{{ info.0 }}</td>
+<td>{{ info.1 }}</td>
+<td>
+    <!--  改用ajax
+    <a href="/del_project?usernaem={{ username }}&project={{ info.0 }}" title="删除{{ info.0 }}">
+        <img src="{% static '/images/remove.jpg' %}" height="20px" width="20px" >
+    </a>-->
+    <input type="image" width="20px" height="20px" src="{% static '/images/remove.jpg' %}" onclick="delete_project(this)" id="{{ info.0 }}" name="">
+</td>
+</tr>
+{% endfor %}
+</table>
+</body>

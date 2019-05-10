@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WeiShiKeJi_rollback_Login</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static '/favicon.ico' %}" />
+  <script charset="utf-8" src="{% static 'jquery/jquery1.8.3.min.js' %}" ></script>
+    <style type="text/css">
+        .div2 {
+    position: relative;
+    text-align: center;
+    margin: 20% auto;
+}
+        </style>
+</head>
+<body>
+    <div class="div2">
+            <form method="post" action="/user_verification" onsubmit="return login()">
+        {{ USERNAME }}<input type="text" id="name" name="username" style="width:100px;height" placeholder="username"/> <br>
+    	{{ PASSWORD }}<input type="password" name="password" id="pass" autocomplete="new-password" style="width:100px" placeholder="password" /> <br>
+        <input type="text" name="code" id="code" style="height:40px;width: 60px" />
+        <img id="check_code_img" src="/verification_code" onclick="refresh_check_code(this)" style="top: 19px;position:relative" /><br><br>
+       <input type="submit" id="submit" value="登录"  />
+            </form>
+        </div>
+
+</body>
+</html>

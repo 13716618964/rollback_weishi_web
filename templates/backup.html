@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for ip in server_ip %}{{ ip }}&nbsp;
+                            <select name="version">
+                                                                        {% for version in back_files.ip %}
+                                                                    <option value="{{ version }}">{{ version }}</option><br>{% empty %}
+                                                                            <option value="无法回滚">无法回滚</option><br>
+                                                                            {% endfor %}<br>
+                                                                </select> {% endfor %}<br><br>
+</body>
+</html>

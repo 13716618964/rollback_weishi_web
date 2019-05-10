@@ -1,0 +1,47 @@
+*** Starting uWSGI 2.0.18 (64bit) on [Tue Apr 30 11:59:01 2019] ***
+compiled with version: 4.4.7 20120313 (Red Hat 4.4.7-23) on 23 April 2019 03:16:28
+os: Linux-2.6.32-504.el6.x86_64 #1 SMP Wed Oct 15 04:27:16 UTC 2014
+nodename: localhost.localdomain
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /www/weishikeji_object_rollback/script
+writing pidfile to /www/weishikeji_object_rollback/script/uwsgi_8081.pid
+detected binary path: /usr/local/python3/bin/uwsgi
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /www/weishikeji_object_rollback
+your processes number limit is 35246
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+building mime-types dictionary from file /etc/mime.types...883 entry found
+lock engine: pthread robust mutexes
+thunder lock: enabled
+uWSGI http bound on 0.0.0.0:8081 fd 3
+uwsgi socket 0 bound to UNIX address /www/weishikeji_object_rollback/script/uwsgi_8081.sock fd 6
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.5.2 (default, Dec 30 2018, 01:20:27)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-23)]
+Python main interpreter initialized at 0x2612430
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 486672 bytes (475 KB) for 5 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x2612430 pid: 12934 (default app)
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 12934)
+spawned uWSGI worker 1 (pid: 12936, cores: 1)
+spawned uWSGI worker 2 (pid: 12937, cores: 1)
+spawned uWSGI worker 3 (pid: 12938, cores: 1)
+spawned uWSGI worker 4 (pid: 12939, cores: 1)
+spawned uWSGI worker 5 (pid: 12940, cores: 1)
+spawned uWSGI http 1 (pid: 12941)
+2019-04-30 14:05:18
+192.168.1.132
+{'SERVER_NAME': 'localhost.localdomain', 'REMOTE_PORT': '55491', 'HTTP_ACCEPT': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8', 'wsgi.input': <uwsgi._Input object at 0x7f1db0ee31b0>, 'HTTP_COOKIE': 'sessionid=iqyl7vyqajjpczqmo0uh2tqslp9faecl', 'QUERY_STRING': '', 'UWSGI_ROUTER': 'http', 'HTTP_ACCEPT_ENCODING': 'gzip, deflate', 'uwsgi.version': b'2.0.18', 'SCRIPT_NAME': '', 'wsgi.version': (1, 0), 'wsgi.run_once': False, 'HTTP_CONNECTION': 'keep-alive', 'HTTP_UPGRADE_INSECURE_REQUESTS': '1', 'HTTP_HOST': '192.168.1.16:8081', 'PATH_INFO': '/', 'wsgi.multiprocess': True, 'wsgi.errors': <_io.TextIOWrapper name=2 mode='w' encoding='UTF-8'>, 'wsgi.multithread': False, 'SERVER_PORT': '8081', 'REQUEST_URI': '/', 'HTTP_ACCEPT_LANGUAGE': 'zh-CN,zh;q=0.9', 'REMOTE_ADDR': '192.168.1.132', 'SERVER_PROTOCOL': 'HTTP/1.1', 'HTTP_USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3650.400 QQBrowser/10.4.3341.400', 'wsgi.file_wrapper': <built-in function uwsgi_sendfile>, 'REQUEST_METHOD': 'GET', 'wsgi.url_scheme': 'http', 'uwsgi.node': b'localhost.localdomain'}
+[pid: 12937|app: 0|req: 1/1] 192.168.1.132 () {38 vars in 729 bytes} [Tue Apr 30 14:05:17 2019] GET / => generated 1113 bytes in 538 msecs (HTTP/1.1 200) 4 headers in 124 bytes (1 switches on core 0)
+[pid: 12936|app: -1|req: -1/2] 192.168.1.132 () {38 vars in 717 bytes} [Tue Apr 30 14:05:18 2019] GET /static/jquery/jquery1.8.3.min.js => generated 93637 bytes in 26 msecs via sendfile() (HTTP/1.1 200) 3 headers in 119 bytes (0 switches on core 0)
+[pid: 12938|app: 0|req: 1/3] 192.168.1.132 () {38 vars in 723 bytes} [Tue Apr 30 14:05:18 2019] GET /verification_code => generated 3691 bytes in 554 msecs (HTTP/1.1 200) 5 headers in 269 bytes (1 switches on core 0)
+[pid: 12939|app: -1|req: -1/4] 192.168.1.132 () {38 vars in 725 bytes} [Tue Apr 30 14:05:18 2019] GET /static/favicon.ico => generated 4286 bytes in 1 msecs via sendfile() (HTTP/1.1 200) 3 headers in 127 bytes (0 switches on core 0)

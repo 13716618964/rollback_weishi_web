@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WeiShiKeJi_rollback</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static '/favicon.ico' %}" />
+  <script charset="utf-8" src="{% static 'jquery/jquery1.8.3.min.js' %}" ></script>
+    <script charset="utf-8" src="{% static 'js/rollback.js' %}" ></script>
+
+</head>
+<body style="height: 100%;width: 100%;">
+    <div class="div1"  align="right"  style="width: 100%;height: 4%;left:0;top:0;position:fixed;"  >
+
+    </div>
+    <div class="div2"  align="right"  style="width: 100%;height: 5%;left:0;top:4%;position:fixed;"  >
+           <a href="userinfo.html">{{ username }}</a>/<input value="注销" type="button" onclick="exit()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <!-- 导航栏 -->
+    <div class="divNavigation"   style="width: 100%;height: 10%;left:0;top:9%;position:fixed;" >
+            <div class="Nav_1" align="center" style="width: 25%;height: 10%;left:0;top:9%;position:fixed;background-color: blue;">
+                 <a href="/index.html" title="主页"><h1>主页</h1></a>
+            </div>
+            <div class="Nav_2" align="center" style="width: 25%;height: 10%;left:25%;top:9%;position:fixed;background-color: red;">
+                <a href="/insert_project.html" title="添加项目"><h1>添加项目</h1></a>
+            </div>
+            <div class="Nav_3" align="center" style="width: 25%;height: 10%;left:50%;top:9%;position:fixed;background-color:green;">
+                <a href="/del_project.html" title="删除项目"><h1>删除项目</h1></a>
+            </div>
+            <div class="Nav_4" align="center" style="width: 25%;height: 10%;left:75%;top:9%;position:fixed;background-color:black;">
+                <a href="/add_server.html" title="添加服务器"><h1>添加服务器</h1></a>
+            </div>
+
+        <a href="/insert_project.html" title="添加项目">添加项目</a>
+    </div>
+    <!-- -->
+    <div class="div3"  style="width: 20%;height: 75%;left:0;top:19%;position:fixed;overflow-y:auto;overflow-x: hidden ">
+        <ul id="ul" style="list-style:none;text-align: center">
+                <li>以下是支持回滚的项目</li><br>
+            {% for name in project_names %}
+                <a href="/roll_project?project={{ name }}" title="{{ name }}" ><li>{{ name }}</li></a><br>
+               <!-- <li><a href="/roll_project?project={{ name }}" title="{{ name }}" >{{ name }}</a></li><br>  --> {% empty %}
+            {% endfor %}
+        </ul>
+    <!-- <img id="check_code_img" src="/login/create_code/" onclick="refresh_check_code(this)" style="top: 19px;position:relative" /><br> 测试刷新页面-->
+    </div>
+    <!--  从这里开始 引入页面 -->
+
+</table>
+    </div>
+    {% if pagetag == 'homepage' %}
+    <div class="div4" align="center" style="width: 80%;height: 75%;left:20%;top:19%;position:fixed;margin:auto;">
+            功能简介
+     </div>
+        {% elif pagetag == 'insert' %}
+        <div class="div4" align="center" style="width: 80%;height: 75%;left:20%;top:19%;position:fixed;margin:auto;">
+            {% include 'insert_project.html' %}
+     </div>
+        {% elif pagetag == 'add_server' %}
+        <div class="div4" align="center" style="width: 80%;height: 75%;left:20%;top:19%;position:fixed;margin:auto;overflow-x: hidden;overflow-y: auto">
+            {% include 'add_server.html' %}
+     </div>
+        {% elif pagetag == 'del_project' %}
+        <div class="div4" align="center" style="width: 80%;height: 75%;left:20%;top:19%;position:fixed;margin:auto;overflow-x: hidden;overflow-y: auto">
+            {% include 'del_project.html' %}
+     </div>
+        {% elif pagetag == 'user_info' %}
+        <div class="div4"  style="width: 80%;height: 75%;left:40%;top:19%;position:fixed;margin:auto;overflow-x: hidden;overflow-y: auto">
+        <br><br><br><br><br>
+            {% include 'userinfo.html' %}
+     </div>
+        {% elif pagetag == 'add_user' %}
+        <div class="div4"  style="width: 80%;height: 75%;left:40%;top:19%;position:fixed;margin:auto;overflow-x: hidden;overflow-y: auto">
+        <br>
+            {% include 'add_user.html' %}
+     </div>
+    {% else %}
+    <div class="div4"  style="width: 80%;height: 75%;left:20%;top:19%;position:fixed;margin:auto;overflow-x: hidden;overflow-y: auto">
+        {% include 'project.html' %}
+    </div>
+    {% endif %}
+    <div class="div_end" style="width: 100%;height: 6%;left:0;top:94%;position:fixed;></div>
+
+</body>
+</html>

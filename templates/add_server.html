@@ -1,0 +1,30 @@
+<body>
+<br>
+<form action="/add_server" method="post">
+<input type="hidden" name="server_num" value="{{ server_num }}">
+    {% if server_num == 'add' %}
+        服务器IP：<br>
+        <input name="{{ ip }}_ip" type="text" ><br>
+        用户名：<br>
+        <input name="{{ ip }}_user" type="text" ><br>
+        密码：<br>
+        <input name="{{ ip }}_pass" type="text" ><br>
+        端口：<br>
+        <input name="{{ ip }}_port" type="text" ><br>
+    {% else %}
+<input type="hidden" name="IP_Total" value="{% for ip in no_server %}{{ ip }}{% if not forloop.last %},{% endif %}{% endfor %}" >
+    {% for ip in no_server %}
+        服务器IP：&nbsp;&nbsp;&nbsp;&nbsp;{{ ip }}<br>
+        <input type="hidden" name="{{ ip }}">
+        用户名：<br>
+        <input name="{{ ip }}_user" type="text" ><br>
+        密码：<br>
+        <input name="{{ ip }}_pass" type="text" ><br>
+        端口：<br>
+        <input name="{{ ip }}_port" type="text" ><br>
+    {% endfor %}
+        <br><br>
+    {% endif %}
+<input type="submit" value="提交">
+</form>
+</body>

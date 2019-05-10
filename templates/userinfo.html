@@ -1,0 +1,14 @@
+<body>
+    <br>
+    <form action="update_password" method="post" onsubmit="return password_judge()">
+        用户名：&nbsp;&nbsp;&nbsp;&nbsp;{{ username }}<br>
+        email ：&nbsp;&nbsp;&nbsp;&nbsp;{{ email }}<br>
+        修改密码：<br>
+        输入新密码　：<input id="pass" type="password" name="new_password" ><br>
+        再次输入密码：<input id="new_pass" type="password" name="re_new_password" ><br>
+        <input type="submit"  value="修改密码">
+    </form><br>
+    <form action="adduser.html" method="get">
+        <input type="submit" value="添加用户" />
+    </form>
+</body>
